@@ -1,0 +1,47 @@
+<style type="text/css">
+    #mynetwork {
+    width: 700px;
+    height: 500px;
+    border: 1px solid lightgray;
+    }
+</style>
+<div id="mynetwork"></div>
+<script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="/assets/libs/fastadmin-layer/dist/layer.js"></script>
+<script src="/static/vis-network/vis-network.min.js"></script>
+<script>
+
+var windowWidth = $(window).width();
+var windowHeight = $(window).height();
+$('#mynetwork').width(windowWidth - 40);
+$('#mynetwork').height(windowHeight - 60);
+
+
+var nodes = new vis.DataSet((<?php echo $nodes_str;?>));
+var index = layer.load(1, {
+    shade: [0.8, '#fff'] //0.1透明度的白色背景
+});
+
+// create an array with edges
+var edges = new vis.DataSet((<?php echo $edges_str;?>));
+
+// create a network
+var container = document.getElementById("mynetwork");
+var data = {
+    nodes: nodes,
+    edges: edges,
+};
+var options = {
+    layout: {
+        hierarchical: {
+            direction: "UD",
+            parentCentralization: true
+        },
+    },
+};
+var network = new vis.Network(container, data, options);
+network.on('stabilizationIterationsDone', function () {
+    console.log('stabilizationIterationsDone');
+    layer.close(index);
+});
+</script>

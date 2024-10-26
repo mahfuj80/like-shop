@@ -1,0 +1,24 @@
+###
+# @url=http://test8.zhongzetaotao.top
+@url=http://www.like2.net
+###
+POST {{url}}/api/account/register
+Content-Type: application/json
+Accept-Language: en
+
+{
+    "client": 6,
+    "mobile": "13272741130",
+    "password": "abc123456X",
+    "pcode": "WNLRZ3"
+}
+###login
+POST {{url}}/api/account/login
+Content-Type: application/json
+Accept-Language: en
+
+{
+    "client": 6,
+    "account": "13272741129",
+    "password": "abc123456X"
+}
